@@ -34,11 +34,11 @@ function App() {
 }
 
 const Home = () => {
-  let [pageNumber, updatePageNumber] = useState(1);
-  let [status, updateStatus] = useState("");
-  let [gender, updateGender] = useState("");
-  let [species, updateSpecies] = useState("");
-  let [fetchedData, updateFetchedData] = useState([]);
+  let [pageNumber, setPageNumber] = useState(1);
+  let [status, setStatus] = useState("");
+  let [gender, setGender] = useState("");
+  let [species, setSpecies] = useState("");
+  let [fetchedData, setFetchedData] = useState([]);
   let [search, setSearch] = useState("");
   let { info, results } = fetchedData;
 
@@ -47,22 +47,22 @@ const Home = () => {
   useEffect(() => {
     (async function () {
       let data = await fetch(api).then((res) => res.json());
-      updateFetchedData(data);
+      setFetchedData(data);
     })();
   }, [api]);
   return (
     <div className="App">
       <h1 className="text-center mb-3">Characters</h1>
-      <Search setSearch={setSearch} updatePageNumber={updatePageNumber} />
+      <Search setSearch={setSearch} updatePageNumber={setPageNumber} />
       <div className="container">
         <div className="row">
           <Filter
             pageNumber={pageNumber}
             status={status}
-            updateStatus={updateStatus}
-            updateGender={updateGender}
-            updateSpecies={updateSpecies}
-            updatePageNumber={updatePageNumber}
+            setStatus={setStatus}
+            setGender={setGender}
+            setSpecies={setSpecies}
+            setPageNumber={setPageNumber}
           />
           <div className="col-lg-8 col-12">
             <div className="row">
@@ -74,7 +74,7 @@ const Home = () => {
       <Pagination
         info={info}
         pageNumber={pageNumber}
-        updatePageNumber={updatePageNumber}
+        setPageNumber={setPageNumber}
       />
     </div>
   );
